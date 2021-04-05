@@ -1,1 +1,1 @@
-# COMP353_NetflixProject
+# COMP 353 Netflix Project
