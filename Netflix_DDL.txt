@@ -3,9 +3,9 @@ create table entertainment (
         Title             varchar(500), 
         DateAdded         varchar(20), 
         ReleaseYear       int,          
-        Rating            char,
+        Rating            varchar(10),
         Description       varchar(500), 
-        EntertainmentType char, 
+        EntertainmentType char(10), 
     primary key (ShowID)
 ) ;
 
