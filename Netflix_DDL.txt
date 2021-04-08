@@ -1,7 +1,7 @@
 create table entertainment (
         ShowID            int,
-        Title             char, 
-        DateAdded         DATE, 
+        Title             varchar(500), 
+        DateAdded         varchar(20), 
         ReleaseYear       int,          
         Rating            char,
         Description       varchar(500), 
