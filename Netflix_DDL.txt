@@ -1935,11 +1935,6 @@ create table directedby (
 ) ;
 
 
-create table director (
-        DirectorName       char,
-    primary key (DirectorName)
-) ;
-
 create table entertainmenttype (
         Movie       char,
         TVShow      char
