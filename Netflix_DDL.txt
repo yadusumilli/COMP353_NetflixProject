@@ -24,7 +24,7 @@ create table entertainmentcast  (
 
 create table country  (
         ShowID         char,
-        CountryName      char,
+        CountryName    char,
     primary key (ShowID, CountryName),
     foreign key (showID) references entertainment (ShowId)
 ) ;
