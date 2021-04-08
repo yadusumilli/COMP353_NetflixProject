@@ -1,0 +1,40 @@
+create table entertainment (
+        Title             char, 
+        DateAdded 		  DATE, 
+        ReleaseYear       DATE,          
+        Rating            char,
+        Description       varchar(500), 
+        EntertainmentType char, 
+    primary key (ShowID)
+) ;
+
+create table entertainmentgenre  (
+        ShowID         char,
+        GenreType      char,
+    primary key (ShowID, GenreType),
+    foreign key (showID) references entertainment (ShowId)
+) ;
+
+create table entertainmentcast  (
+        ShowID         char,
+        CastName       char,
+    primary key (ShowID, CastName),
+    foreign key (showID) references entertainment (ShowId)
+) ;
+
+create table directedby (
+        ShowID         char,
+        DirectorName       char,
+    primary key (ShowID, DirectorName)
+) ;
+
+
+create table director (
+        DirectorName       char,
+    primary key (DirectorName)
+) ;
+
+create table entertainmenttype (
+        Movie       char,
+        TVShow      char
+) ;
