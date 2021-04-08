@@ -1,4 +1,5 @@
 create table entertainment (
+        ShowID            int,
         Title             char, 
         DateAdded         DATE, 
         ReleaseYear       int,          
@@ -9,28 +10,28 @@ create table entertainment (
 ) ;
 
 create table entertainmentgenre  (
-        ShowID         char,
+        ShowID         int,
         GenreType      char,
     primary key (ShowID, GenreType),
     foreign key (showID) references entertainment (ShowId)
 ) ;
 
 create table entertainmentcast  (
-        ShowID         char,
+        ShowID         int,
         CastName       char,
     primary key (ShowID, CastName),
     foreign key (showID) references entertainment (ShowId)
 ) ;
 
 create table country  (
-        ShowID         char,
+        ShowID         int,
         CountryName    char,
     primary key (ShowID, CountryName),
     foreign key (showID) references entertainment (ShowId)
 ) ;
 
 create table directedby (
-        ShowID         char,
+        ShowID         int,
         DirectorName       char,
     primary key (ShowID, DirectorName)
 ) ;
