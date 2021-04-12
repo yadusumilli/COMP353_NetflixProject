@@ -1928,9 +1928,6 @@ create table entertainmentcountry  (
     foreign key (showID) references entertainment (ShowId)
 ) ;
 
-INSERT INTO entertainmentcountry
-(ShowID, CountryName)
-VALUES
 
 
 
@@ -1939,9 +1936,7 @@ create table directedby (
         DirectorName   varchar(500),
     primary key (ShowID, DirectorName)
 ) ;
-INSERT INTO directedby
-(ShowID, DirectorName)
-VALUES
+
 
 
 
