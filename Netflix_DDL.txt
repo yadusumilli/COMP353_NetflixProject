@@ -1939,8 +1939,8 @@ create table directedby (
 
 
 
-
 create table entertainmenttype (
-        Movie       char,
-        TVShow      char
+        ShowID       int,
+        Type         varchar(30),
+        primary key (ShowID, Type)
 ) ;
