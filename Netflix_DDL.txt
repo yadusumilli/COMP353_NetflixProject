@@ -1909,23 +1909,25 @@ VALUES
 
 create table entertainmentgenre  (
         ShowID         int,
-        GenreType      char,
-    primary key (ShowID, GenreType),
-    foreign key (showID) references entertainment (ShowId)
+        GenreType1     char,
+        GenreType2     char,
+        GenreType3     char,
+    primary key (ShowID, GenreType1),
+    foreign key (ShowID) references entertainment (ShowId)
 ) ;
 
 create table entertainmentcast  (
         ShowID         int,
         CastName       char,
     primary key (ShowID, CastName),
-    foreign key (showID) references entertainment (ShowId)
+    foreign key (ShowID) references entertainment (ShowId)
 ) ;
 
 create table country  (
         ShowID         int,
         CountryName    char,
     primary key (ShowID, CountryName),
-    foreign key (showID) references entertainment (ShowId)
+    foreign key (ShowID) references entertainment (ShowId)
 ) ;
 
 create table directedby (
