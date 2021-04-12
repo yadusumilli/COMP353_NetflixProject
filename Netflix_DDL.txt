@@ -1909,9 +1909,9 @@ VALUES
 
 create table entertainmentgenre  (
         ShowID         int,
-        GenreType1     char,
-        GenreType2     char,
-        GenreType3     char,
+        GenreType1     varchar(30),
+        GenreType2     varchar(30),
+        GenreType3     varchar(30),
     primary key (ShowID, GenreType1),
     foreign key (ShowID) references entertainment (ShowId)
 ) ;
