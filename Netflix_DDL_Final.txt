@@ -6,7 +6,7 @@ create table entertainment (
         ReleaseYear       int,          
         Rating            varchar(10),
 	  Duration          varchar(20),
-        Description       varchar(500)
+        Description       varchar(500),
     primary key (ShowID)
 ) ;
 
@@ -1907,7 +1907,7 @@ VALUES
 (7780,'TV Show','Zona Rosa','26-Nov-19',2019,'TV-MA','1 Season','An assortment of talent takes the stage for a night of honest stand-up featuring four of Mexicos funniest LGBTQ comedians.'), 
 (7785,'Movie','Zulu Man in Japan','25-Sep-20',2019,'TV-MA','44 min','In this documentary, South African rapper Nasty C hits the stage and streets of Tokyo, introducing himself to the citys sights, sounds and culture.'), 
 (7786,'TV Show','Zumbos Just Desserts','31-Oct-20',2019,'TV-PG','1 Season','Dessert wizard Adriano Zumbo looks for the next ‚ÄúWilly Wonka‚Äù in this tense competition that finds skilled amateurs competing for a $100,000 prize.'), 
-(7787,'Movie','ZZ TOP: THAT LITTLE OL BAND FROM TEXAS','1-Mar-20',2019,'TV-MA','90 min','This documentary delves into the mystique behind the blues-rock trio and explores how the enigmatic band created their iconic look and sound.'), 
+(7787,'Movie','ZZ TOP: THAT LITTLE OL BAND FROM TEXAS','1-Mar-20',2019,'TV-MA','90 min','This documentary delves into the mystique behind the blues-rock trio and explores how the enigmatic band created their iconic look and sound.');
 
 create table entertainmentgenre  (
         ShowID         int,
@@ -21786,7 +21786,7 @@ create table producedIn(
     foreign key (ShowID) references entertainment (ShowID)
 ) ;
 
-INSERT INTO produdedIn
+INSERT INTO producedIn
 (ShowID, CountryName)
 VALUES
 (981,''), 
