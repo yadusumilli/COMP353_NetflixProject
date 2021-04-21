@@ -21778,9 +21778,9 @@ VALUES
 
 
 
-create table produdedIn(
+create table ProducedIn(
         ShowID         int,
-        CountryName      varchar(30) not null,
+        CountryName    varchar(30) not null,
     primary key (ShowID, CountryName),
     foreign key (ShowID) references entertainment (ShowID)
 ) ;
