@@ -30,12 +30,13 @@ def Movies_TVShows():
     
     if formCast.validate_on_submit():
         castSearch = formCast.searchCa.data #cast name we are looking for
-        castQ = all
+        castQ = entertainment.query.join(entertainmentcast, entertainment.ShowID == entertainmentcast.ShowID).where(entertainmentcast.CastName.contains(castSearch))
         return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     if formDirector.validate_on_submit():
         directorSearch = formDirector.searchD.data
-        directorQ = all
+        print(directorSearch)
+        directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).where(entertainmentdirector.DirectorName.contains(directorSearch))
         return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=fromCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     if formGenre.validate_on_submit():
