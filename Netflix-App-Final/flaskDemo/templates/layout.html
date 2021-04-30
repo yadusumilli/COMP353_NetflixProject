@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+        <title>NETFLIX - {{ title }}</title>
+    {% else %}
+        <title>NETFLIX</title>
+    {% endif %}
+</head>
+<body style="background-color:black;">
+</body>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-light bg-danger-30 fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('netflix') }}">NETFLIX </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link text-danger" href="{{ url_for('Movies_TVShows') }}">Movies & TV Shows</a>
+              <a class="nav-item nav-link text-danger" href="{{ url_for('about') }}">Click to View Profiles</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+			  <a class="nav-item nav-link" href="{{ url_for('new_assign') }}">New Assignment</a>
+                <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/login">Sign In </a>
+                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/">Register Here</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main text-danger" class="container text-danger">
+      <div class="row text-danger">
+        <div class="col-md-8 text-danger">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} text-danger bg-dark">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section bg-dark text-white">
+            <h3 class='text-white'> Advanced Search</h3>
+            <p class='text-white'>Search By:
+            <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Search Cast</legend>
+                  <div class="form-group">
+                    {{ form.searchCa.label(class="form-control-label") }}
+                    {% if form.searchCa.errors %}
+                        {{ form.searchCa(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.searchCa.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.searchCa(class="form-control form-control-lg") }}
+                    {% endif %}
+                  </div>
+                </fieldset>
+                <div class="form-group">
+                  {{ form.submitCast(class="btn btn-outline-info") }}
+                </div>
+              </form>
+              <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
+                {{ form3.hidden_tag() }}
+                  <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Search Director</legend>
+                    <div class="form-group">
+                      {{ form3.searchD.label(class="form-control-label") }}
+                      {% if form3.searchD.errors %}
+                          {{ form3.searchD(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form3.searchD.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form3.searchD(class="form-control form-control-lg") }}
+                      {% endif %}
+                    </div>
+                  </fieldset>
+                  <div class="form-group">
+                    {{ form3.submitDirector(class="btn btn-outline-info") }}
+                  </div>
+                </form>
+            <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
+              {{ form1.hidden_tag() }}
+                <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Search Genre</legend>
+                  <div class="form-group">
+                    {{ form1.searchG.label(class="form-control-label") }}
+                    {% if form1.searchG.errors %}
+                        {{ form1.searchG(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form1.searchG.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.searchG(class="form-control form-control-lg") }}
+                    {% endif %}
+                  </div>
+                </fieldset>
+                <div class="form-group">
+                  {{ form1.submitGenre(class="btn btn-outline-info") }}
+                </div>
+              </form>
+            <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
+              {{ form2.hidden_tag() }}
+                <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Search Country</legend>
+                  <div class="form-group">
+                    {{ form2.searchCo.label(class="form-control-label") }}
+                    {% if form2.searchCo.errors %}
+                        {{ form2.searchCo(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form2.searchCo.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form2.searchCo(class="form-control form-control-lg") }}
+                    {% endif %}
+                  </div>
+                </fieldset>
+                <div class="form-group">
+                  {{ form2.submitCountry(class="btn btn-outline-info") }}
+                </div>
+              </form>
+              <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
+                {{ form4.hidden_tag() }}
+                  <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Search Country</legend>
+                    <div class="form-group">
+                      {{ form4.searchL.label(class="form-control-label") }}
+                      {% if form4.searchL.errors %}
+                          {{ form4.searchL(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form4.search.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form4.searchL(class="form-control form-control-lg") }}
+                      {% endif %}
+                    </div>
+                  </fieldset>
+                  <div class="form-group">
+                    {{ form4.submitLang(class="btn btn-outline-info") }}
+                  </div>
+                </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
