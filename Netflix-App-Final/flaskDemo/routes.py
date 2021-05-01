@@ -37,6 +37,7 @@ def Movies_TVShows():
         directorSearch = formDirector.searchD.data
         print(directorSearch)
         directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).where(entertainmentdirector.DirectorName.contains(directorSearch))
+        print(directorQ)
         return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=fromCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     if formGenre.validate_on_submit():
