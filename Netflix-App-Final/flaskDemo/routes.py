@@ -28,35 +28,35 @@ def Movies_TVShows():
     #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
     all = entertainment.query.all()
     
-    if formCast.validate_on_submit():
+    if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
-        castQ = entertainment.query.join(entertainmentcast, entertainment.ShowID == entertainmentcast.ShowID).where(entertainmentcast.CastName.contains(castSearch))
+        castQ = entertainment.query.join(entertainmentcast, entertainment.ShowID == entertainmentcast.ShowID).filter(entertainmentcast.CastName.contains(castSearch))
         return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
-    if formDirector.validate_on_submit():
+    elif formDirector.validate_on_submit() and formDirector.submitDirector.data:
         directorSearch = formDirector.searchD.data
-        print(directorSearch)
-        directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).where(entertainmentdirector.DirectorName.contains(directorSearch))
-        print(directorQ)
-        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=fromCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.ilike(directorSearch))
+        #.where(entertainmentdirector.DirectorName.contains(directorSearch))
+        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
-    if formGenre.validate_on_submit():
+    elif formGenre.validate_on_submit() and formGenre.submitGenre.data:
         genreSearch = formGenre.searchG.data
-        print(genreSearch)
-        genreQ = all
+        genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.contains(genreSearch[2:(len(genreSearch)-3)]))
+        #.where(entertainmentgenre.GenreType.contains(genreSearch))
         return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
-    if formCountry.validate_on_submit():
+    elif formCountry.validate_on_submit() and formCountry.submitCountry.data:
         countrySearch = formCountry.searchCo.data
-        countryQ =all
-        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form=fromCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch[2:(len(countrySearch)-3)]))
+        #.where(producedin.CountryName.contains(countrySearch))
+        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
-    if formLang.validate_on_submit():
+    elif formLang.validate_on_submit():
         langSearch = formLang.searchL.data
         langQ = all
-        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form=fromCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
-    
-    return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+    else:
+        return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
 
   
 @app.route("/about")

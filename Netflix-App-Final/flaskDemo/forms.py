@@ -73,6 +73,7 @@ class SearchGenre(FlaskForm):
     submitGenre = SubmitField('Search')
     
 CountryList = producedin.query.with_entities(producedin.CountryName).distinct()
+
 class SearchCountry(FlaskForm):
     searchCo = SelectField('Select Country:', choices=CountryList)
     submitCountry = SubmitField('Search')
