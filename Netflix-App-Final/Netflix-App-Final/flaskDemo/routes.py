@@ -8,6 +8,8 @@ from flaskDemo.models import entertainmentcast, entertainmentgenre, entertainmen
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy, BaseQuery
+import mysql.connector
+from mysql.connector import Error
 
 
 @app.route("/")
@@ -23,10 +25,7 @@ def Movies_TVShows():
     formDirector = SearchDirector()
     formLang = SearchLanguage()
     
-    #all= entertainment.query.join(producedin, entertainment.ShowID== producedin.ShowID) \
-    #.add_columns(entertainment.Title, entertainment.Type, entertainment.Description) \
-    #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
-    all = entertainment.query.all()
+    all = db.engine.execute("SELECT * FROM entertainment")
     
     db.session.query(entertainment).filter(entertainment.ShowID == 9).\
     update({"ReleaseYear": (entertainment.ReleaseYear+1)})
@@ -73,6 +72,7 @@ def Movies_TVShows():
         return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
     else:
         return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        
 
   
 @app.route("/about")
