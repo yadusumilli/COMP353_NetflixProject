@@ -42,6 +42,8 @@ def Movies_TVShows():
     entertainment.ReleaseYear == 2019, entertainment.Type=='TV Show', entertainment.Duration == '1 Season').\
     update({"ReleaseYear": (entertainment.ReleaseYear+1)})
     db.session.commit()
+    joinSQL = db.engine.execute("SELECT * FROM entertainment INNER JOIN entertainmentdirector ON entertainment.`ShowID` = entertainmentdirector.`ShowID` WHERE (entertainmentdirector.`DirectorName` LIKE 'Yasir Al Yasiri')")
+
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
@@ -51,19 +53,16 @@ def Movies_TVShows():
     elif formDirector.validate_on_submit() and formDirector.submitDirector.data:
         directorSearch = formDirector.searchD.data
         directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.contains(directorSearch))
-        #.where(entertainmentdirector.DirectorName.contains(directorSearch))
         return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formGenre.validate_on_submit() and formGenre.submitGenre.data:
         genreSearch = formGenre.searchG.data
         genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.ilike(genreSearch))
-        #.where(entertainmentgenre.GenreType.contains(genreSearch))
         return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formCountry.validate_on_submit() and formCountry.submitCountry.data:
         countrySearch = formCountry.searchCo.data
         countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch))
-        #.where(producedin.CountryName.contains(countrySearch))
         return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formLang.validate_on_submit():
