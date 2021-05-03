@@ -27,7 +27,22 @@ def Movies_TVShows():
     #.add_columns(entertainment.Title, entertainment.Type, entertainment.Description) \
     #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
     all = entertainment.query.all()
-   
+    
+    db.session.query(entertainment).filter(entertainment.ShowID == 9).\
+    update({"ReleaseYear": (entertainment.ReleaseYear+1)})
+    db.session.commit()
+    
+    db.session.query(entertainmentcast).filter(entertainmentcast.ShowID == 13).delete()
+    db.session.query(entertainmentdirector).filter(entertainmentdirector.ShowID == 13).delete()
+    db.session.query(entertainmentgenre).filter(entertainmentgenre.ShowID == 13).delete()
+    db.session.query(producedin).filter(producedin.ShowID == 13).delete()
+    db.session.query(entertainment).filter(entertainment.ShowID == 13).delete()
+    db.session.commit()
+    
+    db.session.query(entertainment).filter(entertainment.Rating == 'TV-Y', 
+    entertainment.ReleaseYear == 2019, entertainment.Type=='TV Show', entertainment.Duration == '1 Season').\
+    update({"ReleaseYear": (entertainment.ReleaseYear+1)})
+    db.session.commit()
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
