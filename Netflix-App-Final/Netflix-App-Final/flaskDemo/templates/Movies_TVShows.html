@@ -1,80 +1,19 @@
-</body>
-<html>
-<body>
-<h1 style="text-align:center;" class= "text-white">Who's Watching?</h1>
-</body>
-</html>
-	  </div>
-<div class="contact">
-        <div>
-		<a class="box1" href="http://localhost:5000/Movies_TVShows">
-         <img alt="Qries" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png"
-         width="200" height="200">
-      </a>
-		</div>
-        <a class="box2" href="http://localhost:5000/Movies_TVShows">
-         <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/0d282/eb648e0fd0b2676dbb7317310a48f9bdc2b0d282.png"
-         width="200" height="200">
-      </a>
-        </div>
-        <a class="box3" href="http://localhost:5000/Movies_TVShows">
-         <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/dd717/c1c1d3972f7a262e7429a7422498b6cbe18dd717.png"
-         width="200" height="200">
-	  </a>
-        </div>
-		</a>
-        </div>
-        <a class="box4" href="http://localhost:5000/Movies_TVShows">
-         <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/74e71/a0b9ffd5b4892d2e41140d6a086f0983fd074e71.png"
-         width="200" height="200">
-	  </a>
-        </div>
- </div>
-</style>
-</head>
-<body>
-<html>
-<body>
-<p style="text-align:center; word-spacing: 21em;" class= "text-white">PersonA PersonB PersonC Kids</small><p/>
-</body>
-</html>
-<html>
-<body>
-<h3 style="text-align:center;" class= "text-danger">Click A Profile Picture To View Featured Movies & Shows!</h3>
-</body>
-</html>
-<head>
-<style>
-.box1{
-    margin: 0 auto;
-    margin: 6em;
-    float: left;
-}
-.box2{
-    margin: 2;
-    margin: 6em;
-    float: left;
-	margin-right: 0;
-
-}
-.box3{
-    margin: 0 auto;
-    margin: 6em;
-    float: left;
-
- }
-.box4{
-    margin: 0 auto;
-    margin: 6em;
-    float: right;
- }
- .contact{
-   display: inline-flex;
- }
-</style>
-</head>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+    {% for entertainmentcast in entertainmentcasts %}
+        <article class="media content-section bg-dark text-danger">
+          <img class="rounded-circle article-img bg-dark text-danger" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) text-danger bg-dark }}">
+          <div class="media-body bg-dark text-danger">
+            <div class="article-metadata text-danger bg-dark">
+              <a class="mr-2 bg-dark text-danger" href="#">{{ entertainmentcast.author.username }}</a>
+              <small class="text-danger bg-dark">{{ entertainmentcast.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title text-danger bg-dark" href="{{ url_for('post' text-danger bg-dark, post_id=post.id text-danger) bg-dark text-danger  }}">{{ post.title }}</a></h2>
+            <p class="article-content text-danger bg-dark">{{ entertainmentcast.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,9 +27,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>Assignment CRUD - {{ title }}</title>
+        <title>NETFLIX - {{ title }}</title>
     {% else %}
-        <title>Assignment CRUD</title>
+        <title>NETFLIX</title>
     {% endif %}
 </head>
 <body style="background-color:black;">
@@ -105,9 +44,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link text-danger" href="{{ url_for('Movies_TVShows') }}">Featured Movies & Shows</a>
+              <a class="nav-item nav-link text-danger" href="{{ url_for('Movies_TVShows') }}">Movies & TV Shows</a>
               <a class="nav-item nav-link text-danger" href="{{ url_for('about') }}">Click to View Profiles</a>
-							<a class="nav-item nav-link text-danger" href="{{ url_for('trendingnow') }}">Trending Now</a>
+              <a class="nav-item nav-link text-danger" href="{{ url_for('trendingnow') }}">Trending Now</a>
+			  <a class="nav-item nav-link text-danger" href="{{ url_for('comingsoon') }}">Coming Soon</a>
+
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -137,9 +78,7 @@
             {% endif %}
           {% endwith %}
           {% block content %}{% endblock %}
-        </div>
-              </ul>
-            </p>
+      
           </div>
         </div>
       </div>
@@ -148,6 +87,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

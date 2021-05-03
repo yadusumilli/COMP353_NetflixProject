@@ -66,6 +66,10 @@ def netflix():
 @app.route("/trendingnow")
 def trendingnow():
     return render_template('trendingnow.html', title='Trending Now')
+    
+@app.route("/comingsoon")
+def comingsoon():
+    return render_template('comingsoon.html', title='Coming Soon')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
