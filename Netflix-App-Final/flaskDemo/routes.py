@@ -26,7 +26,9 @@ def Movies_TVShows():
     #all= entertainment.query.join(producedin, entertainment.ShowID== producedin.ShowID) \
     #.add_columns(entertainment.Title, entertainment.Type, entertainment.Description) \
     #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
+
     all = entertainment.query.all()
+   
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
@@ -62,6 +64,11 @@ def Movies_TVShows():
 @app.route("/about")
 def netflix():
     return render_template('about.html', title='About')
+    
+@app.route("/trendingnow")
+def trendingnow():
+    return render_template('trendingnow.html', title='Trending Now')
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
