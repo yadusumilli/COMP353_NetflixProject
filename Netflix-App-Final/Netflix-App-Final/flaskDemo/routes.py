@@ -27,6 +27,7 @@ def Movies_TVShows():
     #.add_columns(entertainment.Title, entertainment.Type, entertainment.Description) \
     #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
     all = entertainment.query.all()
+   
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
