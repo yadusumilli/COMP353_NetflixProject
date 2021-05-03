@@ -26,9 +26,7 @@ def Movies_TVShows():
     #all= entertainment.query.join(producedin, entertainment.ShowID== producedin.ShowID) \
     #.add_columns(entertainment.Title, entertainment.Type, entertainment.Description) \
     #.join(entertainmentdirector, producedin.ShowID == entertainmentdirector.ShowID)
-
     all = entertainment.query.all()
-   
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
@@ -37,19 +35,19 @@ def Movies_TVShows():
         
     elif formDirector.validate_on_submit() and formDirector.submitDirector.data:
         directorSearch = formDirector.searchD.data
-        directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.ilike(directorSearch))
+        directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.contains(directorSearch))
         #.where(entertainmentdirector.DirectorName.contains(directorSearch))
         return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formGenre.validate_on_submit() and formGenre.submitGenre.data:
         genreSearch = formGenre.searchG.data
-        genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.contains(genreSearch[2:(len(genreSearch)-3)]))
+        genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.ilike(genreSearch))
         #.where(entertainmentgenre.GenreType.contains(genreSearch))
         return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formCountry.validate_on_submit() and formCountry.submitCountry.data:
         countrySearch = formCountry.searchCo.data
-        countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch[2:(len(countrySearch)-3)]))
+        countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch))
         #.where(producedin.CountryName.contains(countrySearch))
         return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
@@ -68,7 +66,6 @@ def netflix():
 @app.route("/trendingnow")
 def trendingnow():
     return render_template('trendingnow.html', title='Trending Now')
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

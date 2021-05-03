@@ -68,17 +68,31 @@ class SearchDirector(FlaskForm):
     submitDirector = SubmitField('Search')
 
 genreList = entertainmentgenre.query.with_entities(entertainmentgenre.GenreType).distinct()
+resultsGenre=list()
+for row in genreList:
+    rowDict=row._asdict()
+    resultsGenre.append(rowDict)
+myChoicesGenre = [(row['GenreType'],row['GenreType']) for row in resultsGenre] # note the tuple
 class SearchGenre(FlaskForm):
-    searchG = SelectField('Select Genre:', choices=genreList)
+    searchG = SelectField('Select Genre:', choices=myChoicesGenre)
     submitGenre = SubmitField('Search')
     
 CountryList = producedin.query.with_entities(producedin.CountryName).distinct()
-
+resultsCountry=list()
+for row in CountryList:
+    rowDict=row._asdict()
+    resultsCountry.append(rowDict)
+myChoicesCountry = [(row['CountryName'],row['CountryName']) for row in resultsCountry] # note the tuple
 class SearchCountry(FlaskForm):
-    searchCo = SelectField('Select Country:', choices=CountryList)
+    searchCo = SelectField('Select Country:', choices=myChoicesCountry)
     submitCountry = SubmitField('Search')
     
 LanguageList = entertainmentcountry.query.with_entities(entertainmentcountry.PrimLang).distinct()
+resultsLanguage=list()
+for row in LanguageList:
+    rowDict=row._asdict()
+    resultsLanguage.append(rowDict)
+myChoicesLanguage = [(row['PrimLang'],row['PrimLang']) for row in resultsLanguage] # note the tuple
 class SearchLanguage(FlaskForm):
-    searchL = SelectField('Select Language:', choices=LanguageList)
+    searchL = SelectField('Select Language:', choices=myChoicesLanguage)
     submitLang = SubmitField('Search')
