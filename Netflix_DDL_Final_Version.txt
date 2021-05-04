@@ -24035,7 +24035,7 @@ create table user(
 	username	varchar(20) not null,
 	email 	varchar(120) not null,
 	image_file	varchar(20) not null,
-	password	varchar(20) not null,
+	password	varchar(120) not null,
     primary key (id)
 ) ;
 
