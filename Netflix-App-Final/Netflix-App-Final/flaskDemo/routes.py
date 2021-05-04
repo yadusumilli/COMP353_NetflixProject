@@ -4,7 +4,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskDemo import app, db, bcrypt
 from flaskDemo.forms import RegistrationForm, LoginForm, SearchCast, SearchGenre, SearchCountry, SearchDirector, SearchLanguage
-from flaskDemo.models import entertainmentcast, entertainmentgenre, entertainmentcountry, entertainment, entertainmentdirector, producedin
+from flaskDemo.models import entertainmentcast, entertainmentgenre, entertainmentcountry, entertainment, entertainmentdirector, producedin, User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy, BaseQuery
@@ -48,29 +48,29 @@ def Movies_TVShows():
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
         castQ = entertainment.query.join(entertainmentcast, entertainment.ShowID == entertainmentcast.ShowID).filter(entertainmentcast.CastName.contains(castSearch))
-        return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formDirector.validate_on_submit() and formDirector.submitDirector.data:
         directorSearch = formDirector.searchD.data
         directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.contains(directorSearch))
-        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formGenre.validate_on_submit() and formGenre.submitGenre.data:
         genreSearch = formGenre.searchG.data
         genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.ilike(genreSearch))
-        return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formCountry.validate_on_submit() and formCountry.submitCountry.data:
         countrySearch = formCountry.searchCo.data
         countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch))
-        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
     elif formLang.validate_on_submit():
         langSearch = formLang.searchL.data
         langQ = all
-        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
     else:
-        return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
         
 
   
@@ -93,11 +93,11 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = entertainment(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('Movies_TVShows'))
     return render_template('register.html', title='Register', form=form)
     
 @app.route("/login", methods=['GET', 'POST'])
@@ -106,9 +106,9 @@ def login():
         return redirect(url_for('Movies_TVShows'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = entertainment.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(User.password, form.password.data):
+            login_user(sser, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('Movies_TVShows'))
         else:

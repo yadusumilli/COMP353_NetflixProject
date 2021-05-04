@@ -37,12 +37,11 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-			  <a class="nav-item nav-link" href="{{ url_for('new_assign') }}">New Assignment</a>
                 <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/login">Sign In </a>
-                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/">Register Here</a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('login') }}">Sign In </a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('register') }}">Register Here</a>
               {% endif %}
             </div>
           </div>
@@ -68,25 +67,25 @@
             <h3 class='text-white'> Advanced Search</h3>
             <p class='text-white'>Search By:
             <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
-              {{ form.hidden_tag() }}
+              {{ form0.hidden_tag() }}
                 <fieldset class="form-group">
                   <legend class="border-bottom mb-4">Search Cast</legend>
                   <div class="form-group">
-                    {{ form.searchCa.label(class="form-control-label") }}
-                    {% if form.searchCa.errors %}
-                        {{ form.searchCa(class="form-control form-control-lg is-invalid") }}
+                    {{ form0.searchCa.label(class="form-control-label") }}
+                    {% if form0.searchCa.errors %}
+                        {{ form0.searchCa(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.searchCa.errors %}
+                            {% for error in form0.searchCa.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.searchCa(class="form-control form-control-lg") }}
+                        {{ form0.searchCa(class="form-control form-control-lg") }}
                     {% endif %}
                   </div>
                 </fieldset>
                 <div class="form-group">
-                  {{ form.submitCast(class="btn btn-outline-info") }}
+                  {{ form0.submitCast(class="btn btn-outline-info") }}
                 </div>
               </form>
               <form method="POST" style="margin:auto;max-width:600px" enctype="multipart/form-data">
