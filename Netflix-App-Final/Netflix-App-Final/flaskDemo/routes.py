@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskDemo import app, db, bcrypt
-from flaskDemo.forms import RegistrationForm, LoginForm, SearchCast, SearchGenre, SearchCountry, SearchDirector, SearchLanguage
+from flaskDemo.forms import RegistrationForm, LoginForm, SearchCast, SearchGenre, SearchCountry, SearchDirector, SearchLanguage, SearchYasiri
 from flaskDemo.models import entertainmentcast, entertainmentgenre, entertainmentcountry, entertainment, entertainmentdirector, producedin, User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
@@ -24,6 +24,7 @@ def Movies_TVShows():
     formCountry = SearchCountry()
     formDirector = SearchDirector()
     formLang = SearchLanguage()
+    formYasiri = SearchYasiri()
     
     all = db.engine.execute("SELECT * FROM entertainment")
     
@@ -42,35 +43,39 @@ def Movies_TVShows():
     entertainment.ReleaseYear == 2019, entertainment.Type=='TV Show', entertainment.Duration == '1 Season').\
     update({"ReleaseYear": (entertainment.ReleaseYear+1)})
     db.session.commit()
+    
     joinSQL = db.engine.execute("SELECT * FROM entertainment INNER JOIN entertainmentdirector ON entertainment.`ShowID` = entertainmentdirector.`ShowID` WHERE (entertainmentdirector.`DirectorName` LIKE 'Yasir Al Yasiri')")
 
     
     if formCast.validate_on_submit() and formCast.submitCast.data:
         castSearch = formCast.searchCa.data #cast name we are looking for
         castQ = entertainment.query.join(entertainmentcast, entertainment.ShowID == entertainmentcast.ShowID).filter(entertainmentcast.CastName.contains(castSearch))
-        return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= castQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
         
     elif formDirector.validate_on_submit() and formDirector.submitDirector.data:
         directorSearch = formDirector.searchD.data
         directorQ = entertainment.query.join(entertainmentdirector, entertainment.ShowID == entertainmentdirector.ShowID).filter(entertainmentdirector.DirectorName.contains(directorSearch))
-        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= directorQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
         
     elif formGenre.validate_on_submit() and formGenre.submitGenre.data:
         genreSearch = formGenre.searchG.data
         genreQ = entertainment.query.join(entertainmentgenre, entertainment.ShowID == entertainmentgenre.ShowID).filter(entertainmentgenre.GenreType.ilike(genreSearch))
-        return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= genreQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
         
     elif formCountry.validate_on_submit() and formCountry.submitCountry.data:
         countrySearch = formCountry.searchCo.data
         countryQ = entertainment.query.join(producedin, entertainment.ShowID == producedin.ShowID).filter(producedin.CountryName.ilike(countrySearch))
-        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= countryQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
         
-    elif formLang.validate_on_submit():
+    elif formLang.validate_on_submit()and formLang.submitLang.data:
         langSearch = formLang.searchL.data
         langQ = all
-        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= langQ, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
+    elif formYasiri.submitYasiri.data:
+        joinSQL = db.engine.execute("SELECT * FROM entertainment INNER JOIN entertainmentdirector ON entertainment.`ShowID` = entertainmentdirector.`ShowID` WHERE (entertainmentdirector.`DirectorName` LIKE 'Yasir Al Yasiri')")
+        return render_template('entertainment_list.html', joined_m_n= joinSQL, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
     else:
-        return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang)
+        return render_template('entertainment_list.html', joined_m_n= all, title = 'Movies_TVShows', form0=formCast, form1=formGenre, form2=formCountry, form3=formDirector, form4=formLang, form5=formYasiri)
         
 
   
