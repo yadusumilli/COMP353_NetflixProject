@@ -97,5 +97,5 @@ class SearchLanguage(FlaskForm):
     searchL = SelectField('Select Language:', choices=myChoicesLanguage)
     submitLang = SubmitField('Search')
 
-class SearchYasiri(FlaskForm):
-    submitYasiri = SubmitField('Search Yasiri')
+class SearchGilligan(FlaskForm):
+    submitGilligan = SubmitField('Search Gilligan')

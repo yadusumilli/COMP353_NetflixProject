@@ -7,24 +7,24 @@
 	  </div>
 <div class="contact">
         <div>
-		<a class="box1" href="http://localhost:5000/Movies_TVShows">
+		<a class="box1" href="{{ url_for('netflix') }}">
          <img alt="Qries" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png"
          width="200" height="200">
       </a>
 		</div>
-        <a class="box2" href="http://localhost:5000/Movies_TVShows">
+        <a class="box2" href="{{ url_for('trendingnow') }}">
          <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/0d282/eb648e0fd0b2676dbb7317310a48f9bdc2b0d282.png"
          width="200" height="200">
       </a>
         </div>
-        <a class="box3" href="http://localhost:5000/Movies_TVShows">
+        <a class="box3" href="{{ url_for('Movies_TVShows') }}">
          <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/dd717/c1c1d3972f7a262e7429a7422498b6cbe18dd717.png"
          width="200" height="200">
 	  </a>
         </div>
 		</a>
         </div>
-        <a class="box4" href="http://localhost:5000/Movies_TVShows">
+        <a class="box4" href="{{ url_for('comingsoon') }}">
          <img alt="Qries" src="https://occ-0-2041-3662.1.nflxso.net/art/74e71/a0b9ffd5b4892d2e41140d6a086f0983fd074e71.png"
          width="200" height="200">
 	  </a>
@@ -35,13 +35,11 @@
 <body>
 <html>
 <body>
-<p style="text-align:center; word-spacing: 21em;" class= "text-white">PersonA PersonB PersonC Kids</small><p/>
+<p style="text-align:center; word-spacing: 21em;" class= "text-white">Search About Trending Coming</small><p/>
 </body>
 </html>
 <html>
-<body>
-<h3 style="text-align:center;" class= "text-danger">Click A Profile Picture To View Featured Movies & Shows!</h3>
-</body>
+
 </html>
 <head>
 <style>
@@ -99,27 +97,22 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-danger-30 fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('netflix') }}">NETFLIX </a>
+          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('about') }}">NETFLIX </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link text-danger" href="{{ url_for('Movies_TVShows') }}">Movies & TV Shows</a>
-              <a class="nav-item nav-link text-danger" href="{{ url_for('about') }}">Click to View Profiles</a>
-			  <a class="nav-item nav-link text-danger" href="{{ url_for('trendingnow') }}">Trending Now</a>
-			  <a class="nav-item nav-link text-danger" href="{{ url_for('comingsoon') }}">Coming Soon</a>
 
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-			  <a class="nav-item nav-link" href="{{ url_for('new_assign') }}">New Assignment</a>
                 <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/login">Sign In </a>
-                <a class="nav-item nav-link text-danger" href="https://www.netflix.com/">Register Here</a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('login') }}">Sign In </a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('register') }}">Register Here</a>
               {% endif %}
             </div>
           </div>

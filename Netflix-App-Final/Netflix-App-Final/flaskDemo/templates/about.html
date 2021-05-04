@@ -49,15 +49,13 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-danger-30 fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('netflix') }}">NETFLIX </a>
+          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('about') }}">NETFLIX </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link text-danger" href="{{ url_for('Movies_TVShows') }}">Featured Movies & Shows</a>
-              <a class="nav-item nav-link text-danger" href="{{ url_for('about') }}">Click to View Profiles</a>
-              <a class="nav-item nav-link text-danger" href="{{ url_for('trendingnow') }}">Trending Now</a>
+
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -65,8 +63,8 @@
                 <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
-              <a class="nav-item nav-link text-danger" href="{{ url_for('login') }}">Sign In </a>
-              <a class="nav-item nav-link text-danger" href="{{ url_for('register') }}">Register Here</a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('login') }}">Sign In </a>
+                <a class="nav-item nav-link text-danger" href="{{ url_for('register') }}">Register Here</a>
               {% endif %}
             </div>
           </div>
