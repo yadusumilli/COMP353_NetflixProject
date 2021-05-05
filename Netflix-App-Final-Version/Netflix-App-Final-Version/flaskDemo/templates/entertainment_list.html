@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for row in joined_m_n %}
+        <article class="media content-section text-white bg-dark">
+     <h1 class="media-body text-danger bg-dark" style="font-size:30px">{{ row['Title'] }}</h1>
+		<div></div>
+		<div class="article-metadata text-info bg-dark">{{ row['Type'] }}
+			<div class="mr-2 text-white bg-dark" href="/">{{ row['Description'] }} </div>
+		</div>
+		</article>
+     {% endfor %}
+
+{% endblock content %}
