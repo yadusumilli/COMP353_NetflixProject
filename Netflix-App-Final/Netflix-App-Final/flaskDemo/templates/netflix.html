@@ -7,7 +7,7 @@
 	  </div>
 <div class="contact">
         <div>
-		<a class="box1" href="{{ url_for('netflix') }}">
+		<a class="box1" href="{{ url_for('about') }}">
          <img alt="Qries" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png"
          width="200" height="200">
       </a>
@@ -86,9 +86,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>Assignment CRUD - {{ title }}</title>
+        <title>Netflix Search - {{ title }}</title>
     {% else %}
-        <title>Assignment CRUD</title>
+        <title>Netflix Search</title>
     {% endif %}
 </head>
 <body style="background-color:black;">
@@ -97,7 +97,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-danger-30 fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('about') }}">NETFLIX </a>
+          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('netflix') }}">NETFLIX </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

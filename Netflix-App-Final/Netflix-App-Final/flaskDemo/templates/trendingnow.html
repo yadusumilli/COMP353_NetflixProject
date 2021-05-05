@@ -56,9 +56,9 @@ gym teacher and give their kids a Yes Day.</p>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>Assignment CRUD - {{ title }}</title>
+        <title>Netflix Search - {{ title }}</title>
     {% else %}
-        <title>Assignment CRUD</title>
+        <title>Netflix Search</title>
     {% endif %}
 </head>
 <body style="background-color:black;">
@@ -67,7 +67,7 @@ gym teacher and give their kids a Yes Day.</p>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-danger-30 fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('about') }}">NETFLIX </a>
+          <a class="navbar-brand mr-4 font-weight text-danger" href="{{ url_for('netflix') }}">NETFLIX </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

@@ -14,7 +14,7 @@ from mysql.connector import Error
 
 @app.route("/")
 @app.route("/netflix")
-def about():
+def netflix():
     return render_template('netflix.html', title='Profiles')
     
 @app.route("/Movies_TVShows", methods=['GET', 'POST'])
@@ -79,7 +79,7 @@ def Movies_TVShows():
 
   
 @app.route("/about")
-def netflix():
+def about():
     return render_template('about.html', title='About')
     
 @app.route("/trendingnow")
@@ -101,7 +101,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('Movies_TVShows'))
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
     
 @app.route("/login", methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('Movies_TVShows'))
+            return redirect(next_page) if next_page else redirect(url_for('netflix'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
